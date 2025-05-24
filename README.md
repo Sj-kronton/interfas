@@ -2,7 +2,7 @@ Poryecto de estructura de datos por:
 
 Juan alejandro sierra
 
-Maria (no recuerdo el resto de su nombre)
+Maria Alejandra Herrera Taborda
 
-Gabriel (tampoco recuerdo el resto de su nombre)
+Gabriel Galvis Mendoza
 
