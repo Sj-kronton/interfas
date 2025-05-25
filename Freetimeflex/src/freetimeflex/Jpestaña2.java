@@ -121,6 +121,19 @@ public class Jpestaña2 extends javax.swing.JFrame {
         JPanel progressBackground = new JPanel();
         progressBackground.setBounds(90, 110, 366, 35); //
         progressBackground.setBackground(SECONDARY_COLOR/*PRIMARY_COLOR*/);
+        progressBackground.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {//convertir boton en clickeable
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(progressBackground);//crear una clase que reconozca este jframe para ocultarlo
+                Jpestaña3 mForm2 = new Jpestaña3(); //copiar y pegar el codigo aprovechando que funciona y asi ir navegando entre pestañas
+                //Consejo de ingeniero "No reinventes la rueda"
+                mForm2.setVisible(true);
+                currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
+                //Jlogin mForm1 = new Jlogin();
+                //y que mande a la segunda pestaña
+            }
+
+        });
         add(progressBackground);
         
         // Barra de progreso actual (60%) 
@@ -178,6 +191,18 @@ public class Jpestaña2 extends javax.swing.JFrame {
                 Image img = icon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
                 JLabel imageLabel = new JLabel(new ImageIcon(img));
                 imageLabel.setBounds(0, 0, 200, 150);
+                imageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(imageLabel);//crear una clase que reconozca este jframe para ocultarlo
+                        Jpestaña4 mForm2 = new Jpestaña4(); //convertir boton en clickeable
+                        mForm2.setVisible(true);
+                        currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
+                        //Jlogin mForm1 = new Jlogin();
+                        //y que mande a la segunda pestaña
+                    }
+
+                });
                 eventCard.add(imageLabel);
             } catch (Exception e) {
                 // Si no se puede cargar la imagen, usar color de fondo
@@ -199,6 +224,7 @@ public class Jpestaña2 extends javax.swing.JFrame {
         eventTitle.setFont(new Font("Arial", Font.BOLD, 12));
         eventTitle.setForeground(WHITE);
         eventCard.add(eventTitle);
+        
         
         add(eventCard);
     }

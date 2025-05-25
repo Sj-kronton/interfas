@@ -27,7 +27,9 @@ public class Jlogin extends javax.swing.JFrame {
     private BufferedImage unabImg;
     private BufferedImage windowsImg;
     private BufferedImage edgeImg;    
-
+    
+    
+    
     public Jlogin() {
         initComponents();
         setupCustomDesign();
@@ -35,7 +37,7 @@ public class Jlogin extends javax.swing.JFrame {
     }
     private void setupCustomDesign() {
         // Configurar la ventana - reducido a la mitad
-        setSize(800, 595);
+        setSize(800, 595/*700*/);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(Color.WHITE);
@@ -156,7 +158,7 @@ public class Jlogin extends javax.swing.JFrame {
                 g2d.setPaint(gradient);
                 g2d.fillRoundRect(1, 7, getWidth(), getHeight(), 10, 10);
                 
-                // Sombra del botón                //204, 23, 23, 138
+                // "Sombra" del botón                //204, 23, 23, 138
                 g2d.setColor(new Color(217, 217, 217, 219)); // rgba(204, 23, 23, 0.54)
                 g2d.fillRoundRect(0, 0, getWidth()-1, getHeight()-7, 10, 10);
                 
@@ -174,6 +176,19 @@ public class Jlogin extends javax.swing.JFrame {
         loginButton.setBorderPainted(false);
         loginButton.setFont(new Font("Poppins", Font.BOLD, 16));
         loginButton.setForeground(new Color(165, 0, 63)); // #A5003F
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(loginButton);//crear una clase que reconozca este jframe para ocultarlo
+                Jpestaña2 mForm2 = new Jpestaña2(); //convertir boton en clickeable
+                mForm2.setVisible(true);
+                currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
+                //Jlogin mForm1 = new Jlogin();
+                //y que mande a la segunda pestaña
+            }
+
+        });  //Advertencia, esto solo es una prueba, le faltaria ponerle un if para comprobar si en
+        //los cuadros de texto si se encuentra el login y la contraseña correctas, ademas de un mensaje si son incorrectas
         loginPanel.add(loginButton);
         
         // Label "¿Aun sin cuenta? Registrate"
