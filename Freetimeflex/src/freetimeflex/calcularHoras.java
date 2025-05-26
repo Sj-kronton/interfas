@@ -16,11 +16,12 @@ public class calcularHoras extends javax.swing.JFrame {
 public calcularHoras() {
     initComponents();
 
-    // Inicializar la barra de progreso
+    // Inicializar barra de progreso
     jProgressBar1.setMinimum(0);
     jProgressBar1.setMaximum(96);
     jProgressBar1.setStringPainted(true);
 
+    // Aquí pones el código del listener actualizado:
     botoncalcular.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             try {
@@ -32,7 +33,19 @@ public calcularHoras() {
                     jProgressBar1.setValue(96);
                     jProgressBar1.setString("100%");
                 } else {
-                    resultado.setText(horasFaltantes + " horas restantes");
+                    // Cálculo de meses, semanas y días
+                    int horasPorDia = 8;
+                    int diasTotales = horasFaltantes / horasPorDia;
+                    int meses = diasTotales / 30;
+                    int semanas = (diasTotales % 30) / 7;
+                    int dias = (diasTotales % 30) % 7;
+
+                    String textoResultado = horasFaltantes + " horas restantes (" +
+                                            meses + " meses, " +
+                                            semanas + " semanas, " +
+                                            dias + " días)";
+
+                    resultado.setText(textoResultado);
                     jProgressBar1.setValue(horasIngresadas);
                     int porcentaje = (int) ((horasIngresadas / 96.0) * 100);
                     jProgressBar1.setString(porcentaje + "%");
@@ -63,14 +76,13 @@ public calcularHoras() {
         botoncalcular = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         resultado = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 585));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
-        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(165, 0, 63));
 
@@ -94,8 +106,6 @@ public calcularHoras() {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
-
-        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
 
         jPanel2.setBackground(new java.awt.Color(169, 79, 114));
 
@@ -122,18 +132,18 @@ public calcularHoras() {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel3)
+                .addGap(36, 36, 36)
+                .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ingresarHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(botoncalcular)
-                                .addGap(54, 54, 54))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(195, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(ingresarHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(248, 248, 248))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(botoncalcular)
+                        .addGap(297, 297, 297))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,17 +159,40 @@ public calcularHoras() {
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 640, 240));
+        jProgressBar1.setBackground(new java.awt.Color(221, 7, 89));
+        jProgressBar1.setFont(new java.awt.Font("Poppins", 0, 10)); // NOI18N
+        jProgressBar1.setForeground(new java.awt.Color(165, 0, 63));
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(165, 0, 63));
         jLabel2.setText("Calculadora de horas libres");
-        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
-        jProgressBar1.setBackground(new java.awt.Color(221, 7, 89));
-        jProgressBar1.setFont(new java.awt.Font("Poppins", 0, 10)); // NOI18N
-        jProgressBar1.setForeground(new java.awt.Color(165, 0, 63));
-        bg.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 364, 430, 30));
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2))
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +202,7 @@ public calcularHoras() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
