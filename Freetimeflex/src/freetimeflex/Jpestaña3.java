@@ -249,10 +249,16 @@ private void createDetailsPanel() {
     linkLabel.setForeground(Color.CYAN);
     linkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
     linkLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            JOptionPane.showMessageDialog(null, "Redirigiendo a detalles...");
-        }
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(linkLabel);//crear una clase que reconozca este jframe para ocultarlo
+                calcularHoras mForm2 = new calcularHoras(); //convertir boton en clickeable
+                mForm2.setVisible(true);
+                currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
+                //Jlogin mForm1 = new Jlogin();
+                //y que mande a la alculadora
+            }
+
     });
     
     innerPanel.add(completedHoursLabel);
