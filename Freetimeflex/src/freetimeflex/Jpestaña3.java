@@ -139,12 +139,25 @@ public class Jpestaña3 extends javax.swing.JFrame {
         JPanel progressBackground = new JPanel();
         progressBackground.setBounds(90, 90, 366, 35); //
         progressBackground.setBackground(new Color(188, 66, 113)/*PRIMARY_COLOR*/);
+        progressBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(progressBackground);
         
         // Barra de progreso actual (60%) 
         JPanel progressFill = new JPanel();
         progressFill.setBounds(90, 90, 610, 35);
         progressFill.setBackground(new Color(199,199,199,199)); //239, 239, 239, 60
+        progressFill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        progressFill.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(progressFill);//crear una clase que reconozca este jframe para ocultarlo
+                JHome mForm2 = new JHome(); //convertir boton en clickeable
+                mForm2.setVisible(true);
+                currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
+                //Jlogin mForm1 = new Jlogin();
+                //y que mande a la segunda pestaña
+            }
+        });
         add(progressFill);
         
         // Texto de porcentaje
