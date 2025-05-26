@@ -6,6 +6,10 @@ package freetimeflex;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Formatter;
 import javax.swing.*;
 import javax.imageio.ImageIO;
 /**
@@ -14,6 +18,9 @@ import javax.imageio.ImageIO;
  */
 public class Jlogin extends javax.swing.JFrame {
     
+    String barra=File.separator;
+    String Ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
+            
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Jlogin.class.getName());
 
     /**
@@ -22,13 +29,39 @@ public class Jlogin extends javax.swing.JFrame {
     private JTextField userField;
     private JPasswordField passField;
     private JButton loginButton;
-    private JLabel registerLabel;
+    private JButton registerButton;
+    
     private BufferedImage edificioImg;
     private BufferedImage unabImg;
     private BufferedImage windowsImg;
     private BufferedImage edgeImg;    
     
-    
+    private void crear(){
+        String archivo = userField.getText()+".txt";
+        File crearrubi = new File(Ubicacion);
+        File creararchivo = new File(Ubicacion+archivo);
+        
+        if(userField.getText().equals("") || passField.getPassword().equals("") ){
+            JOptionPane.showMessageDialog(rootPane, "Porfavor ingrese su Usuario y contraseña para registrar.");
+        }else{
+            try{
+                if(creararchivo.exists()){
+                    JOptionPane.showMessageDialog(rootPane, "El usuario ya se encuentra registrado.");
+                }else{
+                    crearrubi.mkdirs();
+                    Formatter crearformater = new Formatter(Ubicacion+archivo);
+                    crearformater.format("%s\r\n%s\r\n", "Nombre de Usuario:" + userField.getText()
+                            ,"Usuario: " + userField.getText()
+                            ,"Contraseña: " + passField.getPassword());
+                    
+                    crearformater.close();
+                    JOptionPane.showMessageDialog(rootPane, "REGISTRO EXITOSO");
+                }
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(rootPane, "REGISTRO INCORRECTO");
+            }
+        }
+    }
     
     public Jlogin() {
         initComponents();
@@ -176,11 +209,13 @@ public class Jlogin extends javax.swing.JFrame {
         loginButton.setBorderPainted(false);
         loginButton.setFont(new Font("Poppins", Font.BOLD, 16));
         loginButton.setForeground(new Color(165, 0, 63)); // #A5003F
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(loginButton);//crear una clase que reconozca este jframe para ocultarlo
-                Jpestaña2 mForm2 = new Jpestaña2(); //convertir boton en clickeable
+                JHome mForm2 = new JHome(); //convertir boton en clickeable
                 mForm2.setVisible(true);
                 currentFrame.setVisible(false);//ocultar el jframe con la, bueno no seria clase, pero la cosa esa porque no se porque de otra forma no parece poderse hacer
                 //Jlogin mForm1 = new Jlogin();
@@ -191,14 +226,32 @@ public class Jlogin extends javax.swing.JFrame {
         //los cuadros de texto si se encuentra el login y la contraseña correctas, ademas de un mensaje si son incorrectas
         loginPanel.add(loginButton);
         
-        // Label "¿Aun sin cuenta? Registrate"
-        registerLabel = new JLabel("¿Aun sin cuenta? Registrate");
-        registerLabel.setBounds(72, 277, 167, 13); // Relativo al panel de login
-        registerLabel.setFont(new Font("Poppins", Font.PLAIN, 12));
-        registerLabel.setForeground(Color.WHITE);
-        loginPanel.add(registerLabel);
-        
+        // Botón "Registrar"
+        registerButton = new JButton("Registrar");
+        registerButton.setOpaque(false);
+        registerButton.setContentAreaFilled(false);
+        registerButton.setBorderPainted(false);
+        registerButton.setBounds(72, 277, 167, 13); // Relativo al panel de login
+        registerButton.setFont(new Font("Poppins", Font.PLAIN, 12));
+        registerButton.setForeground(new Color(165, 0, 63));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginPanel.add(registerButton);
         add(loginPanel);
+        
+        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                crear();
+                
+                userField.setText("");
+                passField.setText("");
+            }
+            });    
+     
+        
+        
+        
+        
     }
     private void createFooterBar() {
         // Barra del footer
@@ -307,7 +360,7 @@ private void loadImages() {
         unabImg = ImageIO.read(getClass().getResourceAsStream("/resources/unab.png"));
         windowsImg = ImageIO.read(getClass().getResourceAsStream("/resources/Icono Windows.png"));
         edgeImg = ImageIO.read(getClass().getResourceAsStream("/resources/image.png"));
-    } catch (Exception e) {
+    } catch (IOException e) {
         System.out.println("No se pudieron cargar las imágenes: " + e.getMessage());
     }
 }
@@ -375,29 +428,12 @@ private void loadImages() {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * @param Args
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Jlogin().setVisible(true));
-    }
+    
+public static void main (String[]Args){
+    java.awt.EventQueue.invokeLater(() -> new Jlogin().setVisible(true));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
