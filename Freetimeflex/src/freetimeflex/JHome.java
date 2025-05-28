@@ -121,6 +121,7 @@ public class JHome extends javax.swing.JFrame {
         JPanel progressBackground = new JPanel();
         progressBackground.setBounds(90, 110, 366, 35); //
         progressBackground.setBackground(SECONDARY_COLOR/*PRIMARY_COLOR*/);
+        progressBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         progressBackground.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {//convertir boton en clickeable
@@ -140,6 +141,7 @@ public class JHome extends javax.swing.JFrame {
         JPanel progressFill = new JPanel();
         progressFill.setBounds(90, 110, 610, 35);
         progressFill.setBackground(new Color(199,199,199,199)); //239, 239, 239, 60
+        progressFill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(progressFill);
         
         // Texto de porcentaje
@@ -182,6 +184,7 @@ public class JHome extends javax.swing.JFrame {
     private void createEventCard(int x, int y, String title, boolean hasImage) {
         JPanel eventCard = new JPanel();
         eventCard.setBounds(x, y, 200, 150);
+        eventCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eventCard.setLayout(null);
         
         if (hasImage) {
