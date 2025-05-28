@@ -50,7 +50,7 @@ public class Jlogin extends javax.swing.JFrame {
                 }else{
                     crearrubi.mkdirs();
                     Formatter crearformater = new Formatter(Ubicacion+archivo);
-                    crearformater.format("%s\r\n%s\r\n", "Nombre de Usuario:" + userField.getText()
+                    crearformater.format("%s\r\n%s\r\n"
                             ,"Usuario: " + userField.getText()
                             ,"Contraseña: " + passField.getPassword());
                     
